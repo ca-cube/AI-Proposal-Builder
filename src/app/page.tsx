@@ -12,17 +12,24 @@ import {
     Zap,
     ArrowUpRight,
     ShieldCheck,
-    BrainCircuit
+    BrainCircuit,
+    Activity,
+    Lock
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { calculateWinProbability, optimizeDiscount } from "@/lib/intelligence/revenue-engine";
+import Link from "next/link";
+import { calculateWinProbability, optimizeDiscount, DealData } from "@/lib/intelligence/revenue-engine";
+
+interface Deal extends Omit<DealData, 'repExperience' | 'competitorPresence'> {
+    id: string;
+}
 
 export default function Dashboard() {
     const [activeDealCount, setActiveDealCount] = useState(12);
     const [revenueLift, setRevenueLift] = useState(4.2);
 
     // Mock data for deals
-    const deals = [
+    const deals: Deal[] = [
         { id: '1', client: 'Acme Corp', sector: 'Technology', size: 125000, discount: 0.12, stage: 'negotiation' },
         { id: '2', client: 'Globex', sector: 'Finance', size: 85000, discount: 0.05, stage: 'proposal' },
         { id: '3', client: 'Soylent Inc', sector: 'Manufacturing', size: 450000, discount: 0.15, stage: 'negotiation' },
@@ -47,10 +54,10 @@ export default function Dashboard() {
                 </div>
 
                 <div className="flex gap-4">
-                    <button className="glass-button px-6 py-3 rounded-xl flex items-center gap-2 text-sm font-medium">
+                    <Link href="/proposals/new" className="glass-button px-6 py-3 rounded-xl flex items-center gap-2 text-sm font-medium">
                         <Zap className="w-4 h-4 text-emerald-400" />
                         New Deal Analysis
-                    </button>
+                    </Link>
                 </div>
             </header>
 
@@ -100,8 +107,9 @@ export default function Dashboard() {
 
                         <div className="space-y-4">
                             {deals.map((deal, idx) => {
-                                const winProb = calculateWinProbability(deal as any);
-                                const optimal = optimizeDiscount(deal as any);
+                                const fullDeal = { ...deal, repExperience: 5, competitorPresence: false } as DealData;
+                                const winProb = calculateWinProbability(fullDeal);
+                                const optimal = optimizeDiscount(fullDeal);
 
                                 return (
                                     <motion.div
@@ -126,7 +134,7 @@ export default function Dashboard() {
                                                 <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-1">Win Probability</p>
                                                 <div className="flex items-center gap-2">
                                                     <span className={`text-lg font-bold ${winProb > 0.6 ? 'text-emerald-400' : 'text-amber-400'}`}>
-                                                        {(winProb * 100).toFixed(0)}%
+                                                        {(Number(winProb) * 100).toFixed(0)}%
                                                     </span>
                                                     <div className="w-16 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                                                         <motion.div
@@ -145,9 +153,9 @@ export default function Dashboard() {
                                                 </p>
                                             </div>
 
-                                            <button className="self-center p-2 rounded-lg bg-white/5 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                                            <Link href="/simulator" className="self-center p-2 rounded-lg bg-white/5 hover:bg-blue-600 hover:text-white transition-all">
                                                 <ChevronRight className="w-4 h-4" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </motion.div>
                                 );
@@ -155,7 +163,41 @@ export default function Dashboard() {
                         </div>
                     </section>
 
-                    {/* Negotiation Simulator Placeholder */}
+                    {/* Revenue Velocity Visualization */}
+                    <section className="glass-card p-6 border-white/5 bg-slate-900/20 box-border">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                <Activity className="w-4 h-4 text-blue-400" />
+                                Revenue Velocity (MTD)
+                            </h2>
+                            <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-tighter">
+                                <span className="flex items-center gap-1 text-blue-400"><div className="w-2 h-2 rounded-full bg-blue-400" /> Projected</span>
+                                <span className="flex items-center gap-1 text-slate-600"><div className="w-2 h-2 rounded-full bg-slate-600" /> Baseline</span>
+                            </div>
+                        </div>
+
+                        <div className="h-[200px] w-full flex items-end justify-between gap-1 px-2">
+                            {[45, 52, 48, 61, 55, 67, 72, 65, 81, 78, 85, 92].map((val, i) => (
+                                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
+                                    <div className="w-full relative flex items-end justify-center min-h-[150px]">
+                                        <motion.div
+                                            initial={{ height: 0 }}
+                                            animate={{ height: `${val}%` }}
+                                            className="w-full bg-blue-600/20 rounded-t-lg border-x border-t border-blue-500/20 group-hover:bg-blue-600/40 transition-colors"
+                                        />
+                                        <motion.div
+                                            initial={{ height: 0 }}
+                                            animate={{ height: `${val * 0.7}%` }}
+                                            className="absolute bottom-0 w-1/2 bg-slate-800 rounded-t-sm group-hover:bg-slate-700 transition-colors"
+                                        />
+                                    </div>
+                                    <span className="text-[8px] text-slate-600 font-bold uppercase">{['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'][i]}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Negotiation Simulator CTA */}
                     <section className="glass-card p-8 border-blue-500/20 bg-blue-500/5 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Zap className="w-32 h-32 text-blue-500" />
@@ -164,13 +206,13 @@ export default function Dashboard() {
                         <div className="relative z-10 max-w-lg">
                             <span className="px-2 py-1 rounded bg-blue-500/20 text-[10px] text-blue-400 font-bold uppercase tracking-widest mb-4 inline-block">Pro Feature</span>
                             <h2 className="text-2xl font-bold mb-3">AI Negotiation Simulator</h2>
-                            <p className="text-slate-400 mb-6">
-                                Run Monte Carlo simulations on deal trajectories. Predict buyer counteroffers and optimize your concession strategy using Reinforcement Learning.
+                            <p className="text-slate-400 mb-6 font-medium leading-relaxed">
+                                Train your concession strategy using Markov Decision Processes (MDP). Predict buyer counteroffers and protect your margins with reinforcement learning.
                             </p>
-                            <button className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition-colors font-medium flex items-center gap-2">
+                            <Link href="/simulator" className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition-all font-bold flex items-center gap-2 w-fit shadow-lg shadow-blue-900/40 active:scale-95">
                                 Start Simulation
                                 <ArrowUpRight className="w-4 h-4" />
-                            </button>
+                            </Link>
                         </div>
                     </section>
                 </div>

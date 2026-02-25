@@ -38,21 +38,32 @@ export async function POST(req: Request) {
     Sections: Executive Summary, Strategic Alignment, Value-Based Pricing, Next Steps.
   `;
 
-    const response = await openai.createChatCompletion({
-        model: 'gpt-4',
-        stream: true,
-        messages: [
-            {
-                role: 'system',
-                content: 'You are an AI Revenue Intelligence agent that writes high-conversion B2B proposals.'
-            },
-            {
-                role: 'user',
-                content: prompt
-            }
-        ],
-    });
+    try {
+        const response = await openai.createChatCompletion({
+            model: 'gpt-4',
+            stream: true,
+            messages: [
+                {
+                    role: 'system',
+                    content: 'You are an AI Revenue Intelligence agent that writes high-conversion B2B proposals.'
+                },
+                {
+                    role: 'user',
+                    content: prompt
+                }
+            ],
+        });
 
-    const stream = OpenAIStream(response);
-    return new StreamingTextResponse(stream);
+        const stream = OpenAIStream(response);
+        return new StreamingTextResponse(stream);
+    } catch (error: any) {
+        console.error("OpenAI API Error:", error);
+        return new Response(JSON.stringify({
+            error: "Failed to generate proposal narrative. Please check your AI configuration.",
+            status: 500
+        }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
 }
