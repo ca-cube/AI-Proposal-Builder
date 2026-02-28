@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useCompletion } from "ai/react";
 import {
@@ -64,7 +64,7 @@ export default function NewProposal() {
                                     type="text"
                                     placeholder="Enter client..."
                                     value={clientName}
-                                    onChange={(e) => setClientName(e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setClientName(e.target.value)}
                                     className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-700"
                                 />
                             </div>
@@ -74,7 +74,7 @@ export default function NewProposal() {
                                 <div className="relative">
                                     <select
                                         value={sector}
-                                        onChange={(e) => setSector(e.target.value)}
+                                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSector(e.target.value)}
                                         className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
                                     >
                                         <option value="Technology">Technology & SaaS</option>
@@ -93,7 +93,7 @@ export default function NewProposal() {
                                 <input
                                     type="number"
                                     value={dealSize}
-                                    onChange={(e) => setDealSize(Number(e.target.value))}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDealSize(Number(e.target.value))}
                                     className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all tabular-nums"
                                 />
                             </div>

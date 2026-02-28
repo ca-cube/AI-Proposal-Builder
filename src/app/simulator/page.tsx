@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     ArrowLeft,
@@ -11,14 +11,18 @@ import {
     TrendingDown,
     ChevronRight,
     RefreshCcw,
-    Zap
+    Zap,
+    Activity,
+    ArrowUpRight,
+    BrainCircuit,
+    Lock
 } from "lucide-react";
 import Link from "next/link";
 import { simulateNegotiationStep } from "@/lib/intelligence/revenue-engine";
 
 export default function SimulatorPage() {
     const [discount, setDiscount] = useState(0.05);
-    const [messages, setMessages] = useState([
+    const [messages, setMessages] = useState<{ role: 'buyer' | 'seller', content: string, sentiment?: string }[]>([
         { role: 'buyer', content: "The current proposal is interesting, but the price is still a bit high for our Q2 budget. Can you do better?", sentiment: 'Neutral' }
     ]);
     const [isSimulating, setIsSimulating] = useState(false);
@@ -89,7 +93,7 @@ export default function SimulatorPage() {
 
                     <div className="flex-1 overflow-y-auto p-8 space-y-8 scroll-smooth custom-scrollbar">
                         <AnimatePresence mode="popLayout" initial={false}>
-                            {messages.map((m, idx) => (
+                            {messages.map((m: { role: string, content: string, sentiment?: string }, idx: number) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -97,15 +101,15 @@ export default function SimulatorPage() {
                                     className={`flex gap-4 ${m.role === 'seller' ? 'flex-row-reverse' : ''}`}
                                 >
                                     <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${m.role === 'seller'
-                                            ? 'bg-blue-600 shadow-blue-900/40'
-                                            : 'bg-slate-800 border border-white/10 shadow-black/40'
+                                        ? 'bg-blue-600 shadow-blue-900/40'
+                                        : 'bg-slate-800 border border-white/10 shadow-black/40'
                                         }`}>
                                         {m.role === 'seller' ? <User className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
                                     </div>
                                     <div className="max-w-[75%] space-y-2">
                                         <div className={`p-5 rounded-2xl text-sm leading-relaxed shadow-sm ${m.role === 'seller'
-                                                ? 'bg-blue-600 text-white rounded-tr-none'
-                                                : 'bg-slate-800/80 backdrop-blur-sm border border-white/5 text-slate-100 rounded-tl-none'
+                                            ? 'bg-blue-600 text-white rounded-tr-none'
+                                            : 'bg-slate-800/80 backdrop-blur-sm border border-white/5 text-slate-100 rounded-tl-none'
                                             }`}>
                                             {m.content}
                                         </div>
@@ -152,7 +156,7 @@ export default function SimulatorPage() {
                                         max="0.4"
                                         step="0.01"
                                         value={discount}
-                                        onChange={(e) => setDiscount(Number(e.target.value))}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDiscount(Number(e.target.value))}
                                         className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600 transition-all active:scale-[0.99]"
                                     />
                                 </div>
