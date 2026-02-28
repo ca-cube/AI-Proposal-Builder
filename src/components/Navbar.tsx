@@ -27,32 +27,36 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-xl">
             <div className="max-w-[1600px] mx-auto px-8 h-16 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-900/40 group-hover:scale-110 transition-transform">
-                        A
+                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] group-hover:scale-105 transition-transform duration-300">
+                        <span className="font-outfit text-xl">A</span>
                     </div>
-                    <span className="font-bold text-lg tracking-tight text-white">
-                        Aura<span className="text-blue-500">Intelligence</span>
+                    <span className="font-outfit font-bold text-xl tracking-tight text-white">
+                        Aura<span className="text-blue-500 font-light">Intelligence</span>
                     </span>
                 </Link>
 
                 {/* Desktop Nav */}
-                <div className="hidden md:flex items-center gap-1">
+                <div className="hidden md:flex items-center gap-2">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 ${pathname === item.href
-                                    ? "bg-blue-600/10 text-blue-400"
-                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                            className={`px-4 py-2 rounded-lg text-sm font-outfit font-medium transition-all duration-300 flex items-center gap-2 relative group overflow-hidden ${pathname === item.href
+                                ? "text-blue-400"
+                                : "text-slate-400 hover:text-white"
                                 }`}
                         >
+                            {pathname === item.href && (
+                                <motion.div layoutId="nav-pill" className="absolute inset-0 bg-blue-500/10 rounded-lg -z-10" />
+                            )}
+                            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg -z-10" />
                             <item.icon className="w-4 h-4" />
                             {item.name}
                         </Link>
                     ))}
-                    <div className="h-4 w-px bg-white/10 mx-4" />
-                    <div className="flex items-center gap-2 text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider">
-                        <ShieldCheck className="w-3 h-3" />
+                    <div className="h-4 w-px bg-white/10 mx-3" />
+                    <div className="flex items-center gap-2 text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider cursor-default hover:bg-emerald-500/20 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                        <ShieldCheck className="w-3.5 h-3.5" />
                         Secure Engine
                     </div>
                 </div>
@@ -81,8 +85,8 @@ export function Navbar() {
                                 href={item.href}
                                 onClick={() => setIsOpen(false)}
                                 className={`px-4 py-3 rounded-xl text-sm font-medium transition-all flex items-center gap-3 ${pathname === item.href
-                                        ? "bg-blue-600 text-white"
-                                        : "text-slate-400 hover:text-white hover:bg-white/5"
+                                    ? "bg-blue-600 text-white"
+                                    : "text-slate-400 hover:text-white hover:bg-white/5"
                                     }`}
                             >
                                 <item.icon className="w-5 h-5" />

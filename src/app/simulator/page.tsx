@@ -57,17 +57,17 @@ export default function SimulatorPage() {
                         <MessageSquare className="text-blue-500 w-5 h-5" />
                         <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">Live Training Environment</span>
                     </div>
-                    <h1 className="text-4xl font-bold tracking-tight text-white">
+                    <h1 className="text-4xl font-outfit font-bold tracking-tight text-white">
                         Negotiation <span className="text-blue-500">Simulator</span>
                     </h1>
                 </div>
 
-                <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/5 backdrop-blur-md self-start md:self-center">
+                <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/5 backdrop-blur-xl shadow-inner self-start md:self-center">
                     {(['rational', 'aggressive', 'conservative'] as const).map((p) => (
                         <button
                             key={p}
                             onClick={() => setPersona(p)}
-                            className={`px-5 py-2 rounded-lg text-xs font-bold capitalize transition-all duration-300 ${persona === p ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                            className={`px-5 py-2.5 rounded-lg text-xs font-outfit font-bold uppercase tracking-wider transition-all duration-300 ${persona === p ? 'bg-blue-600/90 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] scale-105' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                         >
                             {p}
                         </button>

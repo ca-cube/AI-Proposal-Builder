@@ -48,13 +48,13 @@ export default function Dashboard() {
                         <BrainCircuit className="text-blue-500 w-6 h-6" />
                         <span className="text-sm font-semibold tracking-widest text-blue-400 uppercase">Revenue Intelligence Engine</span>
                     </motion.div>
-                    <h1 className="text-5xl font-bold tracking-tight text-white">
+                    <h1 className="text-5xl font-outfit font-bold tracking-tight text-white">
                         Governance <span className="text-blue-500">Dashboard</span>
                     </h1>
                 </div>
 
                 <div className="flex gap-4">
-                    <Link href="/proposals/new" className="glass-button px-6 py-3 rounded-xl flex items-center gap-2 text-sm font-medium">
+                    <Link href="/proposals/new" className="glass-button px-6 py-3 rounded-xl flex items-center gap-2 text-sm font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 border border-blue-500/30">
                         <Zap className="w-4 h-4 text-emerald-400" />
                         New Deal Analysis
                     </Link>
@@ -96,9 +96,10 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Deal Flow */}
                 <div className="lg:col-span-2 space-y-6">
-                    <section className="glass-card p-6 border-white/5 bg-slate-900/40">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
+                    <section className="glass-card p-6 border-white/5 bg-slate-900/40 relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="flex justify-between items-center mb-6 relative z-10">
+                            <h2 className="text-xl font-outfit font-semibold flex items-center gap-2">
                                 <BarChart3 className="w-5 h-5 text-blue-400" />
                                 Live Revenue Predictions
                             </h2>
@@ -219,61 +220,67 @@ export default function Dashboard() {
 
                 {/* Intelligence Sidebar */}
                 <div className="space-y-6">
-                    <section className="glass-card p-6 border-white/5 bg-slate-900/40">
-                        <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                            <PieChart className="w-5 h-5 text-emerald-400" />
-                            Margin Insights
-                        </h2>
+                    <section className="glass-card p-6 border-white/5 bg-slate-900/40 relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative z-10">
+                            <h2 className="text-xl font-outfit font-semibold mb-6 flex items-center gap-2">
+                                <PieChart className="w-5 h-5 text-emerald-400" />
+                                Margin Insights
+                            </h2>
 
-                        <div className="space-y-6">
-                            <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
-                                <p className="text-sm text-emerald-400 font-medium mb-1 flex items-center gap-1">
-                                    <TrendingUp className="w-3 h-3" /> Potential Uplift
-                                </p>
-                                <h4 className="text-2xl font-bold font-mono">$242,500</h4>
-                                <p className="text-[10px] text-slate-500 mt-2 italic">Identified from underpriced SaaS deals in Technology sector</p>
-                            </div>
-
-                            <div className="space-y-3">
-                                <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Top Margin Risk</p>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm text-slate-300">Over-discounting</span>
-                                    <span className="text-sm font-bold text-red-400">14.2%</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                    <div className="h-full bg-red-400 w-[14%]" />
+                            <div className="space-y-6">
+                                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10 shadow-inner group-hover:border-emerald-500/20 transition-colors">
+                                    <p className="text-sm text-emerald-400 font-medium mb-1 flex items-center gap-1">
+                                        <TrendingUp className="w-3 h-3" /> Potential Uplift
+                                    </p>
+                                    <h4 className="text-3xl font-outfit font-bold text-white tracking-tight">$242,500</h4>
+                                    <p className="text-[10px] text-slate-500 mt-2 italic">Identified from underpriced SaaS deals in Technology sector</p>
                                 </div>
 
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm text-slate-300">Deal Slippage</span>
-                                    <span className="text-sm font-bold text-amber-400">8.5%</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                    <div className="h-full bg-amber-400 w-[8%]" />
+                                <div className="space-y-3">
+                                    <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Top Margin Risk</p>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-sm text-slate-300">Over-discounting</span>
+                                        <span className="text-sm font-bold text-red-400">14.2%</span>
+                                    </div>
+                                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                        <div className="h-full bg-red-400 w-[14%]" />
+                                    </div>
+
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-sm text-slate-300">Deal Slippage</span>
+                                        <span className="text-sm font-bold text-amber-400">8.5%</span>
+                                    </div>
+                                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                        <div className="h-full bg-amber-400 w-[8%]" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <section className="glass-card p-6 border-white/5 bg-slate-900/40">
-                        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                            <Users className="w-5 h-5 text-purple-400" />
-                            Team Performance
-                        </h2>
-                        <p className="text-sm text-slate-400 mb-6 italic">AI-assisted deal coaching is active for 4 reps.</p>
+                    <section className="glass-card p-6 border-white/5 bg-slate-900/40 relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative z-10">
+                            <h2 className="text-xl font-outfit font-semibold mb-4 flex items-center gap-2">
+                                <Users className="w-5 h-5 text-purple-400" />
+                                Team Performance
+                            </h2>
+                            <p className="text-sm text-slate-400 mb-6 italic">AI-assisted deal coaching is active for 4 reps.</p>
 
-                        <div className="flex -space-x-3 mb-4">
-                            {[1, 2, 3, 4, 5].map(i => (
-                                <div key={i} className="w-8 h-8 rounded-full border-2 border-[#030711] bg-slate-800" />
-                            ))}
-                            <div className="w-8 h-8 rounded-full border-2 border-[#030711] bg-blue-600 flex items-center justify-center text-[10px] font-bold">
-                                +12
+                            <div className="flex -space-x-3 mb-4">
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-[#030711] bg-slate-800" />
+                                ))}
+                                <div className="w-8 h-8 rounded-full border-2 border-[#030711] bg-blue-600 flex items-center justify-center text-[10px] font-bold">
+                                    +12
+                                </div>
                             </div>
-                        </div>
 
-                        <button className="w-full py-2 text-sm font-medium text-slate-300 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                            Coach Deal Strategies
-                        </button>
+                            <button className="w-full py-2 text-sm font-medium text-slate-300 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                                Coach Deal Strategies
+                            </button>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -287,20 +294,23 @@ function StatCard({ title, value, change, icon, delay }: { title: string, value:
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay }}
-            className="glass-card p-6 border-white/5 flex flex-col justify-between hover:border-white/10 transition-colors bg-slate-900/20"
+            className="group relative"
         >
-            <div className="flex justify-between items-start mb-4">
-                <div className="p-2 rounded-lg bg-white/5">
-                    {icon}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500" />
+            <div className="glass-card p-6 border-white/5 flex flex-col justify-between hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 bg-slate-900/20 relative z-10">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-2 rounded-lg bg-white/5 group-hover:scale-110 transition-transform duration-300">
+                        {icon}
+                    </div>
+                    <span className="text-[10px] text-slate-400 bg-white/5 px-2 py-1 rounded font-medium border border-white/5">REAL-TIME</span>
                 </div>
-                <span className="text-[10px] text-slate-400 bg-white/5 px-2 py-1 rounded font-medium">REAL-TIME</span>
-            </div>
-            <div>
-                <h3 className="text-slate-400 text-sm font-medium mb-1">{title}</h3>
-                <p className="text-3xl font-bold text-white tracking-tight leading-none mb-2">{value}</p>
-                <p className={`text-xs font-semibold ${change.includes('+') ? 'text-emerald-400' : 'text-slate-400'}`}>
-                    {change}
-                </p>
+                <div>
+                    <h3 className="text-slate-400 text-sm font-medium mb-1 group-hover:text-slate-300 transition-colors">{title}</h3>
+                    <p className="text-3xl font-outfit font-bold text-white tracking-tight leading-none mb-2">{value}</p>
+                    <p className={`text-xs font-semibold ${change.includes('+') ? 'text-emerald-400' : 'text-slate-400'}`}>
+                        {change}
+                    </p>
+                </div>
             </div>
         </motion.div>
     );
