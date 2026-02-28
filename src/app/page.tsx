@@ -43,20 +43,24 @@ export default function Dashboard() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex items-center gap-2 mb-2"
+                        className="flex items-center gap-3 mb-3"
                     >
-                        <BrainCircuit className="text-blue-500 w-6 h-6" />
-                        <span className="text-sm font-semibold tracking-widest text-blue-400 uppercase">Revenue Intelligence Engine</span>
+                        <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                            <BrainCircuit className="text-blue-500 w-5 h-5 animate-pulse-soft" />
+                        </div>
+                        <span className="text-xs font-bold tracking-[0.3em] text-blue-400 uppercase">Revenue Intelligence Engine</span>
                     </motion.div>
-                    <h1 className="text-5xl font-outfit font-bold tracking-tight text-white">
-                        Governance <span className="text-blue-500">Dashboard</span>
+                    <h1 className="text-5xl font-outfit font-black tracking-tight text-white drop-shadow-2xl">
+                        Governance <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Dashboard</span>
                     </h1>
                 </div>
 
                 <div className="flex gap-4">
-                    <Link href="/proposals/new" className="glass-button px-6 py-3 rounded-xl flex items-center gap-2 text-sm font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 border border-blue-500/30">
-                        <Zap className="w-4 h-4 text-emerald-400" />
-                        New Deal Analysis
+                    <Link href="/proposals/new" className="relative group overflow-hidden px-8 py-3.5 rounded-xl flex items-center gap-3 text-sm font-bold text-white shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] border border-blue-500/30 bg-blue-600/10 hover:bg-blue-600/20 backdrop-blur-md transition-all duration-500">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover:animate-[shimmer_2s_infinite]" />
+                        <Zap className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                        <span className="relative z-10 tracking-wide uppercase text-xs">New Deal Analysis</span>
+                        <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-white/10 to-transparent skew-x-12 translate-x-10 group-hover:-translate-x-32 transition-transform duration-1000" />
                     </Link>
                 </div>
             </header>

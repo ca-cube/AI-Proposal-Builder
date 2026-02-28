@@ -128,7 +128,9 @@ export default function NewProposal() {
 
                 {/* Canvas */}
                 <div className="lg:col-span-8">
-                    <div className="glass-card min-h-[842px] flex flex-col border-white/10 bg-slate-900/10 backdrop-blur-3xl relative shadow-2xl overflow-hidden rounded-3xl">
+                    <div className="glass-card min-h-[842px] flex flex-col border-white/10 bg-slate-900/40 backdrop-blur-3xl relative shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden rounded-3xl group">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(59,130,246,0.02)_50%,transparent_100%)] bg-[length:100%_4px] opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity" />
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                         <div className="px-8 py-4 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
                             <div className="flex items-center gap-4">
                                 <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Live Document View</h3>
@@ -140,28 +142,30 @@ export default function NewProposal() {
                                 )}
                             </div>
 
-                            <div className="flex gap-3">
-                                <button className="px-4 py-2 rounded-xl text-[10px] font-bold uppercase bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+                            <div className="flex gap-3 relative z-10">
+                                <button className="px-4 py-2 rounded-xl text-[10px] font-bold uppercase bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5 hover:border-white/20">
                                     Export PDF
                                 </button>
-                                <button className="px-4 py-2 rounded-xl text-[10px] font-bold uppercase bg-blue-600 text-white hover:bg-blue-500 transition-all flex items-center gap-2 shadow-lg shadow-blue-900/20">
+                                <button className="px-4 py-2 rounded-xl text-[10px] font-bold uppercase bg-blue-600/90 text-white hover:bg-blue-500 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] hover:scale-105 active:scale-95 border border-blue-500/50">
                                     <Send className="w-3 h-3" />
                                     Push to CRM
                                 </button>
                             </div>
                         </div>
 
-                        <div className="flex-1 p-[10%] bg-gradient-to-b from-white/[0.02] to-transparent">
+                        <div className="flex-1 p-[10%] bg-gradient-to-b from-white/[0.02] to-transparent relative z-10">
                             {!completion && !isLoading ? (
-                                <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-6 pt-20">
-                                    <div className="relative">
-                                        <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full" />
-                                        <FileText className="w-24 h-24 stroke-[0.5] relative z-10" />
+                                <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-8 pt-20">
+                                    <div className="relative group-hover:scale-105 transition-transform duration-700">
+                                        <div className="absolute inset-0 bg-blue-500/20 blur-[50px] rounded-full animate-pulse-soft" />
+                                        <div className="absolute inset-0 bg-emerald-500/10 blur-[30px] rounded-full translate-x-4 translate-y-4" />
+                                        <FileText className="w-28 h-28 stroke-[0.5] text-blue-500/50 relative z-10" />
+                                        <div className="absolute inset-0 border border-blue-500/20 rounded-xl rotate-45 scale-110 opacity-50 pulse-soft" />
                                     </div>
-                                    <div className="text-center space-y-2 relative z-10">
-                                        <p className="text-sm font-medium text-slate-400">Canvas represents a blank workspace</p>
-                                        <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-                                            Define your deal parameters on the left to activate the orchestrator and generate a margin-aware proposal.
+                                    <div className="text-center space-y-3 relative z-10">
+                                        <p className="text-sm font-outfit font-bold tracking-widest text-slate-400 uppercase">Awaiting Parameters</p>
+                                        <p className="text-xs text-slate-500 leading-relaxed max-w-sm mx-auto">
+                                            Configure target deal variables to initialize the <span className="text-blue-400">Generative AI Orchestrator</span>. A margin-aware proposal structure will be compiled here.
                                         </p>
                                     </div>
                                 </div>
