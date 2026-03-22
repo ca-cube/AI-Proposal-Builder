@@ -26,90 +26,102 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl relative overflow-hidden;
+  }
+
+  .glass-card::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none opacity-50;
   }
 
   .glass-button {
-    @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+    @apply relative overflow-hidden transition-all duration-300 active:scale-95 px-6 py-2 rounded-xl font-bold flex items-center justify-center gap-2;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .glass-button:hover {
-    @apply border-white/20 bg-white/10;
+    @apply border-white/20 bg-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)];
   }
 
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400;
   }
+
+  .premium-border {
+    @apply relative border border-white/10;
+  }
+
+  .premium-border::after {
+    content: "";
+    @apply absolute inset-0 rounded-[inherit] p-[1px] bg-gradient-to-br from-white/20 via-transparent to-white/5 pointer-events-none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 }
 
 /* Custom animations */
 @keyframes pulse-soft {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
 }
 
 @keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
 }
 
 @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+@keyframes rotate-gradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .animate-pulse-soft {
-  animation: pulse-soft 3s infinite;
+  animation: pulse-soft 3s infinite ease-in-out;
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Custom Scrollbar for Futuristic UI */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(3, 7, 17, 1);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.3);
 }
 
-/* Futuristic Tech Grid Overlay */
+/* Tech Grid Overlay */
 .tech-grid {
-  background-size: 50px 50px;
+  background-size: 40px 40px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
+
+.radial-glow {
+  background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+}
+
+.glow-blue { --glow-color: rgba(59, 130, 246, 0.15); }
+.glow-emerald { --glow-color: rgba(16, 185, 129, 0.1); }
+.glow-purple { --glow-color: rgba(139, 92, 246, 0.1); }
